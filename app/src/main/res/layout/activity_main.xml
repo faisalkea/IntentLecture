@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="cursive"
-        android:text="Intent Parcelable Example"
+        android:text="Intent Parcelable Example (Send)"
         android:textColor="@color/colorPrimary"
         android:textSize="24sp"
         android:typeface="sans"

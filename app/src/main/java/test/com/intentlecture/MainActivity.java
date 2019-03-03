@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    public static final String STUD = "stud";
     private static String TAG = "MainActivity";
 
     private Button b1, b2, b3;
@@ -32,8 +33,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.b1:
                 Log.d(TAG, "B1: onClick: called");
                 Student stud = createStudFromView();
-                Log.i(TAG, stud.toString());
-                
+                Log.i(TAG, "Send: "  +stud);
+
+                Intent intent = new Intent(this, ResultActivity.class);
+                intent.putExtra(STUD, stud);
+                startActivity(intent);
+
                 break;
             case R.id.b2:
                 Log.d(TAG, "B2: onClick: called");
