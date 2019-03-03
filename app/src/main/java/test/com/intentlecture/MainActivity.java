@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +15,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final String STUD = "stud";
     private static String TAG = "MainActivity";
 
-    private Button b1, b2, b3;
+    private Button b1, b2, b3, b4;
     private EditText et1, et2, et3, et4, et5, et6;
 
     @Override
@@ -48,6 +49,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d(TAG, "B3: onClick: called");
                 sendMail();
                 break;
+            case R.id.b4:
+                Log.d(TAG, "B4: onClick called");
+                Intent in = new Intent(Intent.ACTION_VIEW);
+                //in.setData(Uri.parse("https://google.com"));
+                in.setData(Uri.parse("https://docs.google.com/document/d/1HyenEbityao36ukUUtZGknBMTHIcUzYyPrvyXYozkSk/edit?usp=sharing"));
+                startActivity(in);
+                break;
         }
     }
 
@@ -63,10 +71,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void sendMail() {
-        Intent email = new Intent(Intent.ACTION_SEND, Uri.parse("mailto:"));
-        email.putExtra(Intent.EXTRA_EMAIL, "fafj@kea.dk");
+        Log.i(TAG, "Send mail");
+        Intent email = new Intent(Intent.ACTION_SEND);
+        email.setType("text/plain");
+        //email.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
+        email.putExtra(Intent.EXTRA_EMAIL, new String[]{"fafj@kea.dk", "test@test.dk"});
         email.putExtra(Intent.EXTRA_SUBJECT, "The Subject");
-        email.putExtra(Intent.EXTRA_TEXT,"Body of the mail");
+
+        String htmlContent = "<h2>Hi Android class</h2> " +
+                                "<p>You see the body of the mail :-)</p>" +
+                                "<p>Pretty nice...</p>" +
+                                "<br>" +
+                                "<h3>/Faisal</h3>";
+
+        email.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(htmlContent,1));
+        //startActivity(email);
         startActivity(Intent.createChooser(email, "Choose an email client from..."));
     }
 
@@ -79,6 +98,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         b2.setOnClickListener(this);
         b3 = findViewById(R.id.b3);
         b3.setOnClickListener(this);
+        b4 = findViewById(R.id.b4);
+        b4.setOnClickListener(this);
 
         et1 = findViewById(R.id.et1);
         et2 = findViewById(R.id.et2);
